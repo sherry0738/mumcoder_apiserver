@@ -14,10 +14,10 @@ const initOptions = {
 const pgp = require("pg-promise")(initOptions);
 
 const cn = {
-    host: "mumcoder.c8uycasr0kiy.ap-southeast-2.rds.amazonaws.com", // 'localhost' is the default;
+    host: 'localhost',
     port: 5432, // 5432 is the default;
-    database: "postgres",
-    
+    database: "mumcoder",
+  
 };
 
 const db = pgp(cn); // database instance;
@@ -35,13 +35,13 @@ function mapToResultJson(rawJson) {
                 description: element.description,
                 answers: []
             };
-            if (element.user_name && element.content) {
+            //if (element.user_name && element.content) {
                 var answer = {
                     user: element.user_name,
                     answer: element.content
                 };
                 newQuestion.answers.push(answer);
-            }
+            //}
             questions.push(newQuestion);
         } else {
             var foundQuestion = false;
@@ -50,13 +50,13 @@ function mapToResultJson(rawJson) {
                 if (questions[i].id === element.id) {
                     foundQuestion=true;
                     //if qustion already added to questions list
-                    if (element.user_name && element.content) {
+                    //if (element.user_name && element.content) {
                         var answer = {
                             user: element.user_name,
                             answer: element.content
                         };
                         questions[i].answers.push(answer);
-                    }
+                    //}
                 } 
             }
             
@@ -79,7 +79,7 @@ function mapToResultJson(rawJson) {
 
 
         }
-    });
+    }); 
     console.log(JSON.stringify(questions));
     return questions;
 }
